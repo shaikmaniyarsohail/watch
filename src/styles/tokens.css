@@ -1,0 +1,57 @@
+/* ------------------------------------------------------------------ */
+/* Design tokens — OMEGA Seamaster Planet Ocean · A Digital Museum     */
+/* Every colour, font, space and motion value the site uses is         */
+/* declared here first. Derived values live beside their source.       */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* ---- Colour · depth ------------------------------------------------
+     The palette is lifted from the footage itself: a dial that runs from
+     midnight blue to black, steel hands, ivory print, one warm accent. */
+  --void: #05070a;     /* page base — the dark beyond the hall        */
+  --abyss: #08101c;    /* section wells, mats behind framed media     */
+  --navy: #0e2038;     /* footer fill, panel wells                    */
+  --midnight: #16355f; /* hairline borders, rules at rest             */
+  --steel: #8fa6bf;    /* secondary text — the colour of deep water   */
+  --silver: #c7d4e2;   /* primary text                                */
+  --ivory: #ece5d8;    /* headings — the printed-catalogue tone       */
+  --ember: #d96b2f;    /* accent — the seconds hand of the interface  */
+
+  /* ---- Type -------------------------------------------------------- */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* Fluid scale across 360–1440px viewports. */
+  --fs-hero: clamp(4.25rem, 14vw, 12rem);
+  --fs-h2: clamp(2.375rem, 5.5vw, 4.5rem);
+  --fs-h3: clamp(1.5rem, 2.6vw, 2.2rem);
+  --fs-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-label: 0.6875rem;
+
+  /* ---- Space · a museum gives objects room -------------------------- */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+  --space-6: 8rem;
+  --gutter: clamp(1.5rem, 5vw, 6rem);
+
+  /* ---- Motion ------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-quick: 0.25s;
+  --dur-slow: 0.8s;
+
+  /* ---- Layers ------------------------------------------------------- */
+  --z-media: 0;
+  --z-scrim: 1;
+  --z-content: 2;
+  --z-nav: 10;
+
+  /* ---- Layout ------------------------------------------------------- */
+  --rail-w: 44px;
+  --nav-h: 64px;
+}

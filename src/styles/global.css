@@ -1,0 +1,1063 @@
+/* ==================================================================
+   Global styles — OMEGA Seamaster Planet Ocean · A Digital Museum
+   Structure: reset → base → utilities → chrome (nav/rail/boot) →
+   media primitives → sections (in render order) → footer →
+   responsive → reduced motion.
+   ================================================================== */
+
+/* ------------------------------------------------------------------ */
+/* Reset & base                                                        */
+/* ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--void);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--void);
+  color: var(--silver);
+  font: 400 var(--fs-body)/1.6 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip; /* clip, not hidden — never creates a scroll container, so sticky pins survive */
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+figure,
+blockquote {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  color: var(--ember);
+  text-underline-offset: 0.25em;
+}
+
+::selection {
+  background: var(--ember);
+  color: var(--void);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 3px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--midnight);
+  border: 2px solid var(--void);
+  border-radius: 5px;
+}
+
+/* Lenis recommended CSS */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                           */
+/* ------------------------------------------------------------------ */
+
+.label {
+  font: 500 var(--fs-label)/1.6 var(--font-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.eyebrow,
+.chapter__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ember);
+}
+
+.eyebrow::before,
+.chapter__eyebrow::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+main > section {
+  position: relative;
+}
+
+main h2 {
+  font: 400 var(--fs-h2)/1.06 var(--font-display);
+  color: var(--ivory);
+  letter-spacing: 0.01em;
+  margin-bottom: var(--space-3);
+}
+
+main p {
+  color: var(--steel);
+  line-height: 1.75;
+}
+
+/* Shared intro/copy wrappers */
+.museum__inner,
+.anatomy-intro__inner,
+.encounter__intro,
+.collection__intro,
+.explode__intro,
+.engineering__inner,
+.chapter__head {
+  padding: var(--space-6) var(--gutter);
+}
+
+/* ------------------------------------------------------------------ */
+/* Boot screens                                                        */
+/* ------------------------------------------------------------------ */
+
+.boot {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: var(--void);
+  color: var(--steel);
+}
+
+.boot__label {
+  animation: boot-pulse 1.6s var(--ease-in-out) infinite alternate;
+}
+
+.boot__detail {
+  max-width: 30rem;
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.boot--error .boot__detail {
+  color: var(--ember);
+}
+
+@keyframes boot-pulse {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome — fixed nav & chapter rail                                   */
+/* ------------------------------------------------------------------ */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-nav);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-inline: var(--gutter);
+  background: linear-gradient(180deg, rgba(5, 7, 10, 0.72), rgba(5, 7, 10, 0.35));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.nav__wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ivory);
+  text-decoration: none;
+}
+
+.nav__omega {
+  font: 400 1.35rem/1 var(--font-display);
+}
+
+.nav__wordmark-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.nav__wordmark-text > :first-child {
+  font: 500 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.3em;
+}
+
+.nav__wordmark-sub {
+  margin-top: 0.2rem;
+  letter-spacing: 0.18em;
+}
+
+.nav__chapter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+.nav__index {
+  color: var(--ember);
+}
+
+.nav__name {
+  font: 400 0.8rem/1 var(--font-body);
+  letter-spacing: 0.08em;
+  color: var(--silver);
+}
+
+.nav__progress {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: rgba(22, 53, 95, 0.5);
+  pointer-events: none;
+}
+
+.nav__progress-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--ember);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Chapter rail — left edge, desktop only */
+.rail {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-nav);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0 10px 12px;
+}
+
+.rail__dot {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+}
+
+.rail__dot::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px;
+  border-radius: 50%;
+  background: rgba(143, 166, 191, 0.4);
+  transition:
+    background var(--dur-quick) var(--ease-out),
+    transform var(--dur-quick) var(--ease-out),
+    box-shadow var(--dur-quick) var(--ease-out);
+}
+
+.rail__dot:hover::after,
+.rail__dot:focus-visible::after {
+  background: var(--silver);
+}
+
+.rail__dot.is-active::after {
+  background: var(--ember);
+  transform: scale(1.5);
+  box-shadow: 0 0 8px rgba(217, 107, 47, 0.55);
+}
+
+.rail__tip {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  color: var(--silver);
+  background: rgba(5, 7, 10, 0.88);
+  border: 1px solid rgba(22, 53, 95, 0.55);
+  padding: 4px 9px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-quick) var(--ease-out),
+    transform var(--dur-quick) var(--ease-out);
+}
+
+.rail__dot:hover .rail__tip,
+.rail__dot:focus-visible .rail__tip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ------------------------------------------------------------------ */
+/* Media primitives                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Ambient (looping) video */
+.ambient {
+  position: relative;
+}
+
+.ambient__video,
+.ambient img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ambient--fill {
+  position: absolute;
+  inset: 0;
+}
+
+/* Scroll-scrubbed video — CSS-sticky pin, ScrollTrigger drives currentTime */
+.scrub {
+  position: relative;
+  height: var(--scrub-h, 300vh);
+}
+
+.scrub__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.scrub__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: var(--z-media);
+}
+
+.scrub__tag {
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--space-4);
+  z-index: var(--z-content);
+  background: rgba(5, 7, 10, 0.6);
+  border: 1px solid rgba(22, 53, 95, 0.45);
+  padding: 6px 10px;
+}
+
+/* Static fallbacks (reduced motion) — poster at natural aspect */
+.scrub--static {
+  height: auto;
+}
+
+.scrub--static .scrub__pin {
+  position: static;
+  height: auto;
+  overflow: visible;
+}
+
+.scrub--static .scrub__media {
+  position: static;
+  height: auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* 00 · Entrance                                                       */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  min-height: 100svh;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-media);
+  overflow: hidden;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-scrim);
+  background:
+    radial-gradient(120% 90% at 50% 30%, transparent 40%, rgba(5, 7, 10, 0.75) 100%),
+    linear-gradient(180deg, rgba(5, 7, 10, 0.45), rgba(5, 7, 10, 0.2) 40%, rgba(5, 7, 10, 0.8));
+}
+
+.hero__inner {
+  position: relative;
+  z-index: var(--z-content);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: calc(var(--nav-h) + var(--space-4)) var(--gutter) var(--space-6);
+}
+
+.hero__title {
+  font: 300 var(--fs-hero)/0.95 var(--font-display);
+  color: var(--ivory);
+  letter-spacing: 0.06em;
+  margin: var(--space-3) 0;
+}
+
+.hero__sub {
+  max-width: 44ch;
+  font-size: var(--fs-lead);
+  margin-bottom: var(--space-4);
+}
+
+.hero__cta,
+.reveal__cta {
+  font: 500 var(--fs-label)/1 var(--font-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  border: 1px solid rgba(217, 107, 47, 0.55);
+  padding: 1.1rem 2rem;
+  transition:
+    background var(--dur-quick) var(--ease-out),
+    color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out);
+}
+
+.hero__cta:hover,
+.hero__cta:focus-visible,
+.reveal__cta:hover,
+.reveal__cta:focus-visible {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: var(--void);
+}
+
+.hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-4);
+  transform: translateX(-50%);
+  z-index: var(--z-content);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero__cue-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(180deg, var(--ember), transparent);
+  animation: cue-drop 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes cue-drop {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 01 · Museum                                                         */
+/* ------------------------------------------------------------------ */
+
+.museum {
+  background: linear-gradient(
+    180deg,
+    var(--void),
+    var(--abyss) 25%,
+    var(--abyss) 75%,
+    var(--void)
+  );
+}
+
+.museum__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.museum__copy p {
+  max-width: 34rem;
+}
+
+.museum__copy p + p {
+  margin-top: var(--space-2);
+}
+
+.museum__media,
+.engineering__fig {
+  background: var(--abyss);
+  border: 1px solid rgba(22, 53, 95, 0.45);
+  padding: 10px;
+}
+
+.museum__media figcaption,
+.engineering__fig figcaption,
+.collection__item figcaption,
+.crystal__fig figcaption {
+  margin-top: 10px;
+}
+
+.museum__media video {
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* 02 · First Encounter                                                */
+/* ------------------------------------------------------------------ */
+
+.encounter__intro {
+  max-width: 56rem;
+}
+
+.encounter__scrub {
+  position: relative;
+}
+
+.encounter__quote {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--gutter);
+  pointer-events: none;
+}
+
+.encounter__quote p {
+  font: italic 300 clamp(1.6rem, 3vw, 2.6rem)/1.35 var(--font-display);
+  color: var(--ivory);
+  text-align: center;
+  max-width: 34ch;
+  text-shadow: 0 2px 24px rgba(5, 7, 10, 0.9);
+}
+
+/* ------------------------------------------------------------------ */
+/* 03 · The Collection                                                 */
+/* ------------------------------------------------------------------ */
+
+.collection__intro {
+  max-width: 56rem;
+}
+
+.collection__stage {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.collection__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(3rem, 8vw, 10rem);
+  padding-inline: clamp(2rem, 8vw, 9rem);
+  will-change: transform;
+}
+
+.collection__item {
+  flex: none;
+  width: min(72vw, 880px);
+}
+
+.collection__item img {
+  width: 100%;
+  height: 62vh;
+  height: 62svh;
+  object-fit: cover;
+  border: 1px solid rgba(22, 53, 95, 0.45);
+}
+
+.collection__hud {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--space-3);
+  z-index: var(--z-content);
+  color: var(--silver);
+}
+
+/* Reduced-motion variant: a wrapped wall instead of a tracked corridor */
+.collection--static .collection__stage {
+  height: auto;
+  overflow: visible;
+}
+
+.collection--static .collection__track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: var(--space-4);
+  padding: 0 var(--gutter) var(--space-6);
+  transform: none !important;
+}
+
+.collection--static .collection__item {
+  width: auto;
+}
+
+.collection--static .collection__item img {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* ------------------------------------------------------------------ */
+/* 04–09 · Anatomy wing                                                */
+/* ------------------------------------------------------------------ */
+
+.anatomy-intro__inner {
+  max-width: 56rem;
+}
+
+.chapter__head {
+  max-width: 60rem;
+}
+
+.chapter__eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.chapter__copy {
+  max-width: 44rem;
+}
+
+.chapter__copy p + p {
+  margin-top: var(--space-2);
+}
+
+/* Crystal — two stills drifting on parallax, staggered like a contact sheet */
+.crystal__stack {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4) var(--gutter) var(--space-6);
+}
+
+.crystal__fig {
+  background: var(--abyss);
+  border: 1px solid rgba(22, 53, 95, 0.45);
+  padding: 10px;
+}
+
+.crystal__fig img {
+  width: 100%;
+  height: auto;
+}
+
+.crystal__fig--one {
+  width: min(56vw, 700px);
+  margin-right: auto;
+}
+
+.crystal__fig--two {
+  width: min(48vw, 580px);
+  margin-top: calc(var(--space-5) * -1);
+  margin-left: auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* 05 · Engineering                                                    */
+/* ------------------------------------------------------------------ */
+
+.engineering {
+  background: linear-gradient(
+    180deg,
+    var(--void),
+    var(--abyss) 25%,
+    var(--abyss) 75%,
+    var(--void)
+  );
+}
+
+.engineering__inner {
+  max-width: 80rem;
+}
+
+.engineering__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.engineering__fig img {
+  width: 100%;
+  height: auto;
+}
+
+.engineering__note {
+  align-self: center;
+  max-width: 30rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* 06 · Exploded View                                                  */
+/* ------------------------------------------------------------------ */
+
+.explode__intro {
+  max-width: 56rem;
+}
+
+.explode__stage {
+  position: relative;
+  height: var(--scrub-h, 520vh);
+}
+
+.explode__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.explode__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: var(--z-media);
+}
+
+/* Frame-sequence canvas: drawing handles its own contain-fit letterboxing. */
+.explode__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-media);
+}
+
+.explode__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-scrim);
+  background: linear-gradient(
+    180deg,
+    rgba(5, 7, 10, 0.3),
+    transparent 30%,
+    transparent 68%,
+    rgba(5, 7, 10, 0.65)
+  );
+}
+
+.explode__panel {
+  position: absolute;
+  left: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-content);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.explode__part {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  opacity: 0.22;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+.explode__part.is-on {
+  opacity: 1;
+}
+
+.explode__part-index {
+  color: var(--ember);
+  letter-spacing: 0.22em;
+}
+
+.explode__part-name {
+  font: 500 0.8rem/1.4 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+.explode__readout {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--space-3);
+  z-index: var(--z-content);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.explode__phase {
+  color: var(--silver);
+}
+
+.explode__frame {
+  color: var(--silver);
+}
+
+.explode__pct {
+  color: var(--ember);
+}
+
+/* Static fallback (reduced motion): poster with every label lit */
+.explode--static {
+  height: auto;
+}
+
+.explode--static .explode__pin {
+  position: static;
+  height: auto;
+  overflow: visible;
+}
+
+.explode--static .explode__media {
+  position: static;
+  height: auto;
+  object-fit: contain;
+}
+
+.explode--static .explode__part {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* 07 · Final Reveal                                                   */
+/* ------------------------------------------------------------------ */
+
+.reveal {
+  min-height: 165vh;
+}
+
+.reveal__bg {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-media);
+  overflow: hidden;
+}
+
+.reveal__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-scrim);
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 40%, rgba(5, 7, 10, 0.72) 100%),
+    linear-gradient(180deg, rgba(5, 7, 10, 0.5), rgba(5, 7, 10, 0.25) 40%, rgba(5, 7, 10, 0.85));
+}
+
+.reveal__inner {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-content);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: calc(var(--nav-h) + var(--space-4)) var(--gutter) var(--space-6);
+}
+
+.reveal__title {
+  margin: var(--space-3) 0;
+}
+
+.reveal__sub {
+  max-width: 46ch;
+  font-size: var(--fs-lead);
+  margin-bottom: var(--space-4);
+}
+
+.reveal__end {
+  position: absolute;
+  inset: auto 0 var(--space-3) 0;
+  z-index: var(--z-content);
+  display: flex;
+  justify-content: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(22, 53, 95, 0.5);
+  padding: var(--space-5) var(--gutter);
+}
+
+.footer__inner {
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.footer__mark {
+  color: var(--ember);
+  display: inline-block;
+  margin-bottom: var(--space-3);
+}
+
+.footer p + p {
+  margin-top: var(--space-2);
+}
+
+.footer__tech {
+  margin-top: var(--space-4) !important;
+  max-width: 60rem;
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .rail {
+    display: none;
+  }
+
+  .nav__name {
+    display: none;
+  }
+
+  .museum__grid,
+  .engineering__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .collection__item {
+    width: 84vw;
+  }
+
+  .collection__item img {
+    height: 48svh;
+  }
+
+  .crystal__fig--one,
+  .crystal__fig--two {
+    width: 100%;
+  }
+
+  .crystal__fig--two {
+    margin-top: var(--space-3);
+  }
+
+  .explode__panel {
+    top: auto;
+    bottom: 5.5rem;
+    transform: none;
+    gap: 0.55rem;
+  }
+
+  .explode__part-name {
+    font-size: 0.7rem;
+  }
+
+  .explode__readout {
+    right: 1.25rem;
+    bottom: 1.25rem;
+  }
+
+  .scrub__tag {
+    left: 1.25rem;
+    bottom: 1.25rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero__cue-line,
+  .boot__label {
+    animation: none;
+  }
+
+  /* The exploded room's labels must stay legible even if JS gates fail */
+  .explode__part {
+    opacity: 1;
+  }
+}
